@@ -117,23 +117,18 @@ var criticalValue = function (u, samples) {
 
     return z;
 };
-// Test the result for significance.
-// A result is significant if the lesser U-value is
-// less than the critical value.
+
 
 let methodCheck = (u) => {
+    zCrit = 1.645;
     console.log(`U1 = ${u[0]}`)
     console.log(`U2 = ${u[1]}`)
     console.log(`Z = ${criticalValue(u, samples)}`)
-    console.log(`${criticalValue(u, samples)} < 1.645 ?`)
-    return (criticalValue(u, samples) < 1.645);
-    // return (Math.min(u[0], u[1]) < 1.645)
+    console.log(`Zкрит = ${zCrit}`)
+    console.log(`${criticalValue(u, samples)} < ${zCrit} ?`)
+    return (criticalValue(u, samples) < zCrit);
 };
 
-// Perform te Mann-Whitney U test on an array of samples.
-// The input should be of the form [[a, b, c], [e, f, g]]
-// where {a, b, ..., g} are numeric values forming two
-// samples.
 let test = (samples) => {
 
     // Perform validation
@@ -174,13 +169,13 @@ let test = (samples) => {
 
 
 
-let n = []
-let m = []
+let n = [];
+let m = [];
 
 let getRndInteger = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
 for (let i = 0; i < 20; i++) {
-    let num = getRndInteger(10, 30);
+    let num = getRndInteger(20, 40);
     n = [...n, num];
 }
 
@@ -196,7 +191,7 @@ console.log("m =", ...samples[1])
 
 let U = test(samples);
 
-check(U, samples)
+check(U, samples);
 
 methodCheck(U, samples) ? console.log('Гипотеза подтверждается') :
     console.log('Гипотеза не подтверждается')
